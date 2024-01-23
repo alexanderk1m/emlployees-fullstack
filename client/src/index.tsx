@@ -9,6 +9,12 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { Paths } from './paths'
 import { ConfigProvider, theme } from 'antd'
 import reportWebVitals from './reportWebVitals'
+import Auth from './features/auth/auth'
+import Employees from './pages/employees'
+import AddEmployee from './pages/addEmployee'
+import Status from './pages/status'
+import Employee from './pages/employee'
+import EditEmployee from './pages/editEmployee'
 
 const container = document.getElementById('root')!
 const root = createRoot(container)
@@ -16,7 +22,7 @@ const root = createRoot(container)
 const router = createBrowserRouter([
   {
     path: Paths.home,
-    element: <h1>Home</h1>,
+    element: <Employees />,
   },
   {
     path: Paths.login,
@@ -26,13 +32,31 @@ const router = createBrowserRouter([
     path: Paths.register,
     element: <Register />,
   },
+  {
+    path: Paths.employeeAdd,
+    element: <AddEmployee />,
+  },
+  {
+    path: `${Paths.status}/:status`,
+    element: <Status />,
+  },
+  {
+    path: `${Paths.employee}/:id`,
+    element: <Employee />,
+  },
+  {
+    path: `${Paths.employeeEdit}/:id`,
+    element: <EditEmployee />,
+  },
 ])
 
 root.render(
   <React.StrictMode>
     <Provider store={store}>
       <ConfigProvider theme={{ algorithm: theme.darkAlgorithm }}>
-        <RouterProvider router={router} />
+        <Auth>
+          <RouterProvider router={router} />
+        </Auth>
       </ConfigProvider>
     </Provider>
   </React.StrictMode>

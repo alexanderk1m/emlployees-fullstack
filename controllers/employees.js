@@ -15,9 +15,9 @@ const allEmployees = async (_, res) => {
 
 const addEmployee = async (req, res) => {
   try {
-    const { firstName, lastName, address, age } = req.body.data
+    const data = req.body
 
-    if (!firstName || !lastName || !address || !age) {
+    if (!data.firstName || !data.lastName || !data.address || !data.age) {
       return res.status(400).json({ message: 'all fields are required' })
     }
 
@@ -30,6 +30,7 @@ const addEmployee = async (req, res) => {
 
     return res.status(201).json(employee)
   } catch (error) {
+    console.log(error)
     res.status(500).json({ message: 'something went wrong' })
   }
 }
